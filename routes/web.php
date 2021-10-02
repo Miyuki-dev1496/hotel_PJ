@@ -62,7 +62,7 @@ Route::get('/wishlist/{user_id}','WishlistController@index');
 Route::get('/userslist', 'UsersController@index' )->name('users_index');
 
 //Follow
-Route::post('/userslist/follow', 'FollowUserController@follow')->name('follow');
+Route::post('/userslist/user_id', 'FollowUserController@follow')->name('follow');
 //Unfollow
 Route::post('/userslist/unfollow', 'FollowUserController@unfollow')->name('unfollow');
 
