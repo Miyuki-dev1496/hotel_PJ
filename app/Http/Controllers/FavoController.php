@@ -16,31 +16,62 @@ class FavoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    // public function index($id)
+    // {
      
-         // 全ての投稿を取得
-        $hotels = Hotel::get();
+    //      // 全ての投稿を取得
+    //     $h_id = Hotel::find($id);
+    //     $thishotel = Hotel::where('id','h_id')->get(['h_name','h_img']);
+    //     ($thishotel);
         
-        return view('hotelpage',[
+    //     return view('hotelpage',[
             
-            'hotels'=> $hotels
-            ]);
+    //         'thishotel'=> $thishotel
+    //         ]);
+            
+            
     
-    }
+    // }
     
-     public function favo($hotel_id)
+     public function favo(int $hotel_id = null)
     {
+        
+//         // すでにお気に入りしているかの確認
+//         $exist = $this->hotel_user($hotel_id);
+//         　　// 相手が自分自身かどうかの確認
+//         $its_me = $this->id == $hotel_id;
+         
+//         if ($exist || $its_me) {
+//         // すでにお気に入り登録していればお気に入り登録を外す
+         
+//         return false;
+//         } else {
+//         // お気に入り登録していなければお気に入り登録をする
+//         $this->favorite()->attach($userId);
+//         return true;
+// }
         //ログイン中のユーザーを取得
         $user = Auth::user();
         
         //お気に入りする記事
         $hotel = Hotel::find($hotel_id);
         
+        if (!empty($hotel)) {
         //リレーションの登録
         $hotel->favo_user()->attach($user);
         
-        return redirect('/hotelpage');
+        }
+        
+        // dd($hotel);
+        
+        // if($request->'user_id')->isValid()){
+        return view('hotelpage') 
+        
+        ->with([
+              'hotel'=> $hotel[$hotel_id],
+              'id' =>$hotel->hotel_id,
+            ]);
+           
         
     }
 
@@ -105,8 +136,26 @@ class FavoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($hotel_id)
     {
-        //
+        // //
+        // $hotel=Hotel::findOrFail($hotel_id);
+
+        // $hotel->favo_user()->delete();
+        
+        $hotel = Hotel::where('favo_user', \Auth::user()->id)->where('favo_user', $user->id)->find($request->getParameter('id'));
+        // $hotel = Hotel::getTable('favo-user')->find($request->getParameter('id'));
+        // $this->form = new 
+        
+        if(!($hotel)){
+        $hotel->favo_user->delete();
+            
+        }
+        
+        return redirect()->with([
+              'hotel'=> $hotel[$hotel_id],
+              'id' =>$hotel->hotel_id,
+            ]);
     }
+    
 }

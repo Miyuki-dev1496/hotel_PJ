@@ -56,7 +56,9 @@
         <p>
           <a href="{{ url('hotelsregister') }}" class="btn btn-primary my-2">Register Hotel</a>
           <a href="{{ url('hotelsregister') }}" class="btn btn-primary my-2">Update</a>
-          <a href="{{ url('wishlist/') }}" class="btn btn-primary my-2">Wish List</a>
+          @if (count($myhotels) > 0)
+          <a href="{{ url ('wishlist',[$id]) }}" class="btn btn-primary my-2">Wish List</a>
+          @endif
         </p>
       </div>
     </div>

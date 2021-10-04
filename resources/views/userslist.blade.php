@@ -90,12 +90,7 @@
               <p class="card-text">"{{ $user ['name']}}"</p>
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <!--ユーザーフォローボタン-->
-                  @if(Auth::id() != $user->followed_user_id && $user->follows()->where('followed_user_id',Auth::id())->exists() !== true)
-                  <form action='{{  route('follow') }}' type="POST" class="form-horizontal">
-                  <button type="submit" class="btn btn-sm btn-outline-secondary" style="color:white; background-color:#3399FF">Follow</button>
-                  </form>
-                  @endif
+                  
                   
                 </div>
                 <small class="text-muted"></small>

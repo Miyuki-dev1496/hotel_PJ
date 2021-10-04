@@ -55,8 +55,8 @@
         <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
         <p>
           <a href="{{ url('hotelsregister') }}" class="btn btn-primary my-2">Register Hotel</a>
-          <a href="{{ url('mypage') }}" class="btn btn-primary my-2">Back</a>
-          <
+          <a href="{{ url ('mypage',[$id]) }}"class="btn btn-primary my-2">&laquo Back</a>
+          
         </p>
       </div>
     </div>
@@ -108,8 +108,9 @@
         @foreach ($favo_hotels as $favo_hotel)
         <div class="col">
           <div class="card shadow-sm">
-            
+            <a  href="{{ url ('hotelpage/'.optional($favo_hotel)->id) }}">
             <img class="bd-placeholder-img card-img-top" src="/hotelImages/{{ $favo_hotel->h_img }}" x="0" y="0"  width="100%" height="225"/>
+            </a>
           </div>  
           <div class="card-body">
                 <p class="card-text">"{{ $favo_hotel->h_name }}"</p>

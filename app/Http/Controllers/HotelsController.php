@@ -22,6 +22,7 @@ class HotelsController extends Controller
     {
          //
         $hotels = Hotel::orderBy('created_at', 'desc')->get();
+        
         return view('hotels')
             ->with([
                 'hotels' => $hotels,

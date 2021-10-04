@@ -31,10 +31,11 @@ class WishlistController extends Controller
         if (Auth::check()) {
              //ログインユーザーのお気に入りを取得
              $favo_hotels = Auth::user()->favo_hotels()->get();
-             
+             $id = Auth::id();
               return view('mypageWish',[
             'hotels'=> $hotels,
-            'favo_hotels'=>$favo_hotels
+            'favo_hotels'=>$favo_hotels,
+            'id'=>$id,
             ]);
             
         }else{

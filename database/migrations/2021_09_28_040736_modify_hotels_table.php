@@ -15,7 +15,8 @@ class ModifyHotelsTable extends Migration
     {
         Schema::table('hotels', function (Blueprint $table) {
             //
-            $table->dropColumn('user_id');
+            $table->unsignedBigInteger('user_id')->after('id');
+            $table->string('h_img')->nullable()->change();
         });
     }
 
@@ -28,7 +29,8 @@ class ModifyHotelsTable extends Migration
     {
         Schema::table('hotels', function (Blueprint $table) {
             //
-            $table->boolean('user_')->default(false);
+            $table->dropColoumn('user_id');
+            $table->string('h_img')->nullable(false)->change();
         });
     }
 }

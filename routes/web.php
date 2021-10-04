@@ -1,9 +1,14 @@
 <?php
 use App\Hotel;
 use App\User;
+use App\Mypage;
 use App\Http\Controllers\HotelsController;
 use App\Http\Controllers\MypageController;
-use App\Mypage;
+use App\HTTp\Controllers\FavoController;
+use App\HTTp\Controllers\WishlistController;
+use App\HTTp\Controllers\UsersController;
+use App\HTTp\Controllers\FollowUserController;
+use App\HTTp\Controllers\HotelpageController;
 use Illuminate\Http\Request;
 
 /*
@@ -32,10 +37,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 //Hotelistにホテルのインデックス表示
-Route::get('/hotels', 'HotelsController@index' )->name('hotels_index');
+// Route::get('/hotels', 'HotelsController@index' )->name('hotels_index');
+Route::get('/hotels', [HotelsController::class, 'index'])->name('hotels_index');
 
 // 新ホテルを追加 to Hotelist
-Route::post('/hotels','HotelsController@store')->name('hotels_add');
+// Route::post('/hotels','HotelsController@store')->name('hotels_add');
+Route::post('/hotels', [HotelsController::class, 'store'])->name('hotels_add');
 
 // ホテルを削除
 Route::delete('/hotel/{hotel}','HotelsController@destroy');
@@ -50,13 +57,17 @@ Route::post('hotels/update','HotelsController@update');
 Route::get('/mypage/{user_id}', 'MypageController@index');
 
 //hotelpageの表示
-Route::get('/hotelpage/{hotel_id}', 'FavoController@index');
+Route::get('/hotelpage/{id}', 'HotelpageController@index');
+// Route::get('/hotelpage/{id}', [HotelpageController::class, 'show']);
 
 //hotelpageのお気に入り処理
-Route::get('/hotelpage/{hotel_id}', 'FavoController@favo');
+Route::post('/hotelpage/{id}', 'FavoController@favo')->name('favo');
+
+//hotelpageのun-お気に入り処理
+Route::delete('/hotelpage/{id}', 'FavoController@destroy')->name('favo_delete');
 
 //Mypageにお気に入り登録をしたホテルのインデックス表示
-Route::get('/wishlist/{user_id}','WishlistController@index');
+Route::get('/wishlist/{id}','WishlistController@index')->name('my_wish');
 
 //UserslistにUserのインデックス表示
 Route::get('/userslist', 'UsersController@index' )->name('users_index');
@@ -111,8 +122,21 @@ Route::get('/map', function () {
 });
 
 
+Route::get('/hotelpage{hotel_id}', function () {
+    
+    $thishotel= [
+        
+        ];
+    
+     return view('hotelpage')
+      ->with([
+             'thishotel'=> $thishotel
+            ]);
+    
+});
 
-// Route::get('/wishlist/{user_id}', function () {
+
+// Route::get('/wishlist/{user_id}' function () {
 //     return view('
 //     mypageWish');
 // });
