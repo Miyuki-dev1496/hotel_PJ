@@ -25,9 +25,12 @@ class Hotel extends Model
     }
     
      // Userテーブルとのリレーション （多対多）
-    public function favo_user(int $favo_user = null) {
+    public function favo_user() {
         return $this->belongsToMany('App\User');
     }
+    
+     
+  
 }
 
 

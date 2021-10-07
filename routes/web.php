@@ -4,9 +4,10 @@ use App\User;
 use App\Mypage;
 use App\Http\Controllers\HotelsController;
 use App\Http\Controllers\MypageController;
+use App\HTTp\Controllers\MypageWishController;
 use App\HTTp\Controllers\FavoController;
-use App\HTTp\Controllers\WishlistController;
 use App\HTTp\Controllers\UsersController;
+use App\HTTp\Controllers\ProfileController;
 use App\HTTp\Controllers\FollowUserController;
 use App\HTTp\Controllers\HotelpageController;
 use Illuminate\Http\Request;
@@ -54,20 +55,21 @@ Route::get('/hotelsedit/{hotel}','HotelsController@edit');
 Route::post('hotels/update','HotelsController@update');
 
 //MyPageに自分の登録したホテルのインデックス表示
-Route::get('/mypage/{user_id}', 'MypageController@index');
+Route::get('/mypage/{request}', 'MypageController@index');
 
+// Route::get('/hotelpage/{id}', [HotelpageController::class, 'show']);
+
+//hotelpageのun-お気に入り処理
+Route::delete('/hotelpage/{id}', 'FavoController@destroy')->name('favo_delete');
 //hotelpageの表示
 Route::get('/hotelpage/{id}', 'HotelpageController@index');
-// Route::get('/hotelpage/{id}', [HotelpageController::class, 'show']);
+
 
 //hotelpageのお気に入り処理
 Route::post('/hotelpage/{id}', 'FavoController@favo')->name('favo');
 
-//hotelpageのun-お気に入り処理
-Route::delete('/hotelpage/{id}', 'FavoController@destroy')->name('favo_delete');
-
 //Mypageにお気に入り登録をしたホテルのインデックス表示
-Route::get('/wishlist/{id}','WishlistController@index')->name('my_wish');
+Route::get('/wishlist/{id}','MypageWishController@index')->name('my_wish');
 
 //UserslistにUserのインデックス表示
 Route::get('/userslist', 'UsersController@index' )->name('users_index');
@@ -76,6 +78,14 @@ Route::get('/userslist', 'UsersController@index' )->name('users_index');
 Route::post('/userslist/user_id', 'FollowUserController@follow')->name('follow');
 //Unfollow
 Route::post('/userslist/unfollow', 'FollowUserController@unfollow')->name('unfollow');
+
+//プロフィール更新画面
+Route::get('/profile/{id}', 'ProfileController@profile')->name('profile');
+
+//プロフィール画像の更新
+Route::get('/profile/{id}', 'UsersController@update' )->name('profile_update');
+
+// Route::get('/', 'FavoController@index')->name('likes.index');
 
 // Route::get('mypage/{auth()->user()->id}', 'MypageController@index');
 // //MyPageに自分のホテルのインデックス表示
@@ -117,29 +127,27 @@ Route::get('/hotelsregister', function () {
 
 
 Route::get('/map', function () {
-    return view('
-    Test');
+    return view('Test');
 });
 
 
-Route::get('/hotelpage{hotel_id}', function () {
+
+// Route::get('/hotelpage{hotel_id}', function () {
     
-    $thishotel= [
+//     $thishotel= [
         
-        ];
+//         ];
     
-     return view('hotelpage')
-      ->with([
-             'thishotel'=> $thishotel
-            ]);
+//      return view('hotelpage')
+//       ->with([
+//              'thishotel'=> $thishotel
+//             ]);
     
-});
+// });
 
 
 // Route::get('/wishlist/{user_id}' function () {
 //     return view('
 //     mypageWish');
 // });
-
-
 

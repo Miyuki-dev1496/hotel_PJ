@@ -28,26 +28,7 @@ class HotelsController extends Controller
                 'hotels' => $hotels,
             ]);
             
-        
-        // // 全ての投稿を取得
-        // $hotels = Hotel::get();
-        
-        // if (Auth::check()) {
-        //      //ログインユーザーのお気に入りを取得
-        //      $favo_hotels = Auth::user()->favo_hotels()->get();
-             
-        //       return view('hotel_page',[
-        //     'hotels'=> $hotels,
-        //     'favo_hotels'=>$favo_hotelss
-        //     ]);
-            
-        // }else{
-            
-        //     return view('hotels',[
-        //     'hotels'=> $hotels
-        //     ]);
-            
-        // }
+       
      
     }
 
@@ -92,7 +73,7 @@ class HotelsController extends Controller
         // 以下に登録処理を記述（Eloquentモデル）
         // Eloquent モデル
         $hotels = new Hotel;
-        $hotels->favo_user()->attach(request()->users); //relation to userscd 
+        // $hotels->favo_user()->attach(request()->users); //relation to userscd 
         $hotels->h_name = $request->h_name;
         $hotels->h_location = $request->h_location;
         $hotels->h_latitude = $request->h_latitude;
@@ -168,10 +149,11 @@ class HotelsController extends Controller
     public function update(Request $request)
     {
         //
-        
         $validator = Validator::make($request->all(), [
         'h_name' => 'required|max:255',
+        'h_img' => 'nullable|file|image',
         ]);
+        
         //バリデーション:エラー 
         if ($validator->fails()) {
             return redirect('/')
@@ -186,14 +168,42 @@ class HotelsController extends Controller
         $hotels->h_longtitude = $request->h_longtitude;
         $hotels->h_link = $request->h_link;
         $hotels->h_price = $request->h_price;
-        $hotels->h_img = $request->h_img;
         $hotels->favorite_id = $request->favorite_id;
         $hotels->wishlist_id = $request->wishlist_id;
         $hotels->stars_id = $request->stars_id;
         $hotels->created_at = now();
         $hotels->updated_at =  now();
+        
+        
+        
+        // //画像の確認
+        // // 元ファイルの名前取得、存在確認
+        //     $fileName = $request->file->getClientOriginalName();　//元ファイル名を取得します。
+        //     $exists = Storage::disk($this->filesystem)->exists($request->upload_path.'/'.$fileName);　//元ファイルと同名のファイルがあるか確認します。
+ 
+        //     if ($exists) {
+        //         Storage::disk($this->filesystem)->delete($request->upload_path.'/'.$fileName);　元ファイルと同名のファイルがあるとき一旦削除します
+        //     }
+            
+            
+            
+        $contents = Storage::get('file.jpg');    
+            
+            
+        // 画像ファイル取得
+        $file = $request->h_img;
+        //画像のextention取得
+        $ext = $file->guessExtension();
+        //ファイル名を生成
+        $fileName = Str::random(32).'.'.$ext;
+        // 画像のファイル名を任意のDBに保存
+        $hotels->h_img = $fileName;
+       
+       
+        
+        
         $hotels->save(); 
-        return redirect('/mypage');
+        return redirect('/mypage/{user_id}');
     }
 
     /**
@@ -214,20 +224,7 @@ class HotelsController extends Controller
        
     }
     
-    //  public function favo($hotel_id)
-    // {
-    //     //ログイン中のユーザーを取得
-    //     $user = Auth::user();
-        
-    //     //お気に入りする記事
-    //     $hotel = Hotel::find($hotel_id);
-        
-    //     //リレーションの登録
-    //     $hotel->favo_user()->attach($user);
-        
-    //     return redirect('/hotelpage');
-        
-    // }
+   
      
      
 }

@@ -59,7 +59,6 @@
      </div>
      
     
-     <!-- Book: 既に登録されてる本のリスト -->
      @endif
  @endsection
  @yield('hotels_add')

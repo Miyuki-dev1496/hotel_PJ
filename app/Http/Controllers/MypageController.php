@@ -27,20 +27,32 @@ class MypageController extends Controller
     
      public function index(Request $request)
     {
-        //  // 全ての投稿を取得
-        // $myhotels = Hotel::get();
+        //User
+        $user = Auth::user();  
+        $id = Auth::user()->id;
         
-        // return view('mypage',[
-        //     'myhotels'=> $myhotels
-        //     ]);
-        $user = Auth::user();    
-        // $user = $request->user();
+        // //ユーザーがログインユーザーである場合
+        // if ($id == $request) {
+        //このユーザーが登録したホテル
         $myhotels = $user->load('myhotels');
-        $id = Auth::id();
+        // $id = Auth::id();
         
-        return view('mypage', ['myhotels'=>$myhotels->myhotels, 'id'=>$id]); 
+        return view ('mypage', ['myhotels'=>$myhotels->myhotels, 'id'=>$id, 'user'=>$user]); 
+            
+        // } else {
+        //     return view ('top');
+        // }
+        // //ユーザーがログインユーザーでない場合
+        // else {
+            
+        // $thishotels = $request->load('thishotels');
+            
+        //     return view ('mypage', ['thishotels'=>$thishotels->thishotels, 'id'=>$id, 'user'=>$user]);
+        // }
        
     }
+    
+   
 
     /**
      * Show the form for creating a new resource.

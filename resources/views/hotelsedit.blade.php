@@ -4,12 +4,39 @@
     <div class="col-md-12">
     @include('common.errors')
         <form action="{{ url('hotels/update') }}" method="POST">
-            <!-- item_name -->
+            <!-- hotel_name -->
             <div class="form-group">
                 <label for="h_name">ホテル名</label>
                 <input type="text" name="h_name" class="form-control" value="{{$hotel->h_name}}">
             </div>
-            <!--/ h_name -->
+            
+                <p>ロケーション</p>
+                <input type="text" name="h_location" class="form-control">
+                <p>ホテルLink</p>
+                <input type="text" name="h_link" class="form-control">
+                <p>プライス</p>
+                <input type="text" name="h_price" class="form-control">
+                       
+                @if ($errors->any())
+                <div class="errors">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                        
+                {{ csrf_field() }}
+                <div class="form-group">
+                <input id="fileUploader" type="file" name="h_img" accept='image/' enctype="multipart/form-data" multiple="multiple" required>
+                </div>
+                        
+            
+            
+            
+            
+            
             <!-- Save ボタン/Back ボタン -->
             <div class="well well-sm">
                 <button type="submit" class="btn btn-primary">Save</button>

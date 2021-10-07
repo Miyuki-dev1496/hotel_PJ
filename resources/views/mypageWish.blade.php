@@ -51,10 +51,11 @@
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">My Hotels List</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <h1 class="fw-light">My Hotels 'Wish' List</h1>
+        <h2 class="lead text-muted">{{$user ->name}}</h2>
+        <!--<p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>-->
         <p>
-          <a href="{{ url('hotelsregister') }}" class="btn btn-primary my-2">Register Hotel</a>
+          <!--<a href="{{ url('hotelsregister') }}" class="btn btn-primary my-2"></a>-->
           <a href="{{ url ('mypage',[$id]) }}"class="btn btn-primary my-2">&laquo Back</a>
           
         </p>
@@ -115,8 +116,9 @@
           <div class="card-body">
                 <p class="card-text">"{{ $favo_hotel->h_name }}"</p>
                   <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    <a  href="{{ url ('hotelpage/'.optional($favo_hotel)->id) }}">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                    <button type="button" class="btn btn-sm btn-outline-secondary"><img src="{{ asset('/images/heart.png')}}" height="18px"></button>
                   </div>
                   <small class="text-muted">9 mins</small>
           </div>
@@ -136,10 +138,10 @@
 <footer class="text-muted py-5">
   <div class="container">
     <p class="float-end mb-1">
-      <a href="#">Back to top</a>
+      <a href="{{ url('/') }}">Back to top</a>
     </p>
-    <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-    <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
+    <!--<p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>-->
+    <!--<p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>-->
   </div>
 </footer>
 

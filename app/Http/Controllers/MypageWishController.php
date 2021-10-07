@@ -10,7 +10,7 @@ use Auth;
 use Validator;
 use Illuminate\Support\Str;
 
-class WishlistController extends Controller
+class MypageWishController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,22 +26,25 @@ class WishlistController extends Controller
      
     public function index()
     {
+        $user = Auth::user();   
         $hotels = Hotel::get();
         
         if (Auth::check()) {
              //ログインユーザーのお気に入りを取得
              $favo_hotels = Auth::user()->favo_hotels()->get();
              $id = Auth::id();
+             
               return view('mypageWish',[
             'hotels'=> $hotels,
             'favo_hotels'=>$favo_hotels,
             'id'=>$id,
+            'user'=>$user
             ]);
             
         }else{
             
             return view('hotelpage',[
-            'hotels'=> $hotels
+            'hotels'=> $hotels, 'user'=>$user
             ]);
             
         }

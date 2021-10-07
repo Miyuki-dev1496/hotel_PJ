@@ -52,10 +52,11 @@
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">My Hotels List</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-        <p>
+        <h2 class="lead text-muted">{{$user ->name}}</h2>
+        <!--<p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>-->
+        <!--<p>-->
           <a href="{{ url('hotelsregister') }}" class="btn btn-primary my-2">Register Hotel</a>
-          <a href="{{ url('hotelsregister') }}" class="btn btn-primary my-2">Update</a>
+          <!--<a href="{{ url('hotelsregister') }}" class="btn btn-primary my-2">Update</a>-->
           @if (count($myhotels) > 0)
           <a href="{{ url ('wishlist',[$id]) }}" class="btn btn-primary my-2">Wish List</a>
           @endif
@@ -110,14 +111,18 @@
         @foreach ($myhotels as $myhotel)
         <div class="col">
           <div class="card shadow-sm">
-            
-            <img class="bd-placeholder-img card-img-top" src="/hotelImages/{{ $myhotel->h_img }}" x="0" y="0"  width="100%" height="225"/>
+            <a  href="{{ url ('hotelpage/'.optional($myhotel)->id) }}">
+            <img class="bd-placeholder-img card-img-top" src="/hotelImages/{{ $myhotel->h_img }}" x="0" y="0"  width="100%" height="225">
+            </a>
           </div>  
           <div class="card-body">
                 <p class="card-text">"{{ $myhotel->h_name }}"</p>
                   <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    <a  href="{{ url ('hotelpage/'.optional($myhotel)->id) }}">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                    <a  href="{{ url ('hotelsedit/'.optional($myhotel)->id) }}">
+                    <button type="POST" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                    </form>
                   </div>
                   <small class="text-muted">9 mins</small>
           </div>
@@ -137,11 +142,11 @@
 <footer class="text-muted py-5">
   <div class="container">
     <p class="float-end mb-1">
-      <a href="#">Back to top</a>
+      <a href="{{ url('/') }}">Back to top</a>
     </p>
-    <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-    <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
-  </div>
+  <!--  <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>-->
+  <!--  <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>-->
+  <!--</div>-->
 </footer>
 
 

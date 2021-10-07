@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','profile_image'
     ];
 
     /**
@@ -47,6 +47,8 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Hotel');
     }
     
+     
+   
     
     // フォロワー→フォロー
     public function followUsers()
