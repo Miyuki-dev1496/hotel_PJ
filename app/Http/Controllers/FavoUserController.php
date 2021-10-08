@@ -56,11 +56,15 @@ class FavoUserController extends Controller
         // // $user = $request->user();
         // $myhotels = $user->load('myhotels');
         // $id = $hotel_id;
+        //ログインユーザーのお気に入りを取得
+        $favousers = Auth::user()->favo_user()->get();
         
-        $favousers = User::where('id', $id)->first();
+        // $favousers = User::where('user_id', $id)->get();
         if (!empty($favousers)) {
         
         $favousers = $id->load('user');
+        
+        
         
         return view('hotelpage', ['user'=>$favousers->favousers]); 
         } else

@@ -25,7 +25,6 @@ class FavoController extends Controller
      public function favo($hotel_id)
     {
         
-// }
         //ログイン中のユーザーを取得
         $user = Auth::user();
         
@@ -37,9 +36,6 @@ class FavoController extends Controller
         $hotel->favo_user()->attach($user);
         
        
-        
-  
-        
         // if($request->'user_id')->isValid()){
         return view('hotelpage') 
         
@@ -114,23 +110,24 @@ class FavoController extends Controller
      * @return \Illuminate\Http\Response
      */
      //お気に入りを外す
-    public function destroy(Hotel $hotel_id)
-    {
+    // public function destroy(Hotel $hotel_id)
+    // {
        
-      
-        //お気に入り登録されているデータ
-        $favodata =  Hotel::where(['hotel_user.hotel_id',$hotel_id],['user_id', Auth::user()->id])->get();
-      
+    //     //ログイン中のユーザーを取得
+    //     $user = Auth::user();
+    //     //お気に入り登録されているデータ
+    //     $favodata =  Hotel::where(['hotel_user.hotel_id',$hotel_id],['user_id', Auth::user()->id])->get();
         
-        if (!empty($favodata)) {
-            
-        //リレーションの登録
-        $favodata->delete();
-            
-        }
         
-        return redirect();
+    //     if (!empty($favodata)) {
+            
+    //     //リレーションの登録
+    //     $favodata->favo_user()->detouch($user);
+            
+    //     }
+        
+    //     return redirect();
        
     
-    }
+    // }
 }

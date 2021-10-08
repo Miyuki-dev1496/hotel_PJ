@@ -64,7 +64,6 @@ Route::delete('/hotelpage/{id}', 'FavoController@destroy')->name('favo_delete');
 //hotelpageの表示
 Route::get('/hotelpage/{id}', 'HotelpageController@index');
 
-
 //hotelpageのお気に入り処理
 Route::post('/hotelpage/{id}', 'FavoController@favo')->name('favo');
 
