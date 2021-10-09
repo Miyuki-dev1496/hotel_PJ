@@ -15,7 +15,7 @@ class CreateHotelsTable extends Migration
     {
         Schema::create('hotels', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id');//追記
             $table->string('h_name');//追記
             $table->string('h_location')->nullable();//追記
             $table->integer('h_latitude')->nullable();//追記
