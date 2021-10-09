@@ -1,6 +1,7 @@
 <?php
 use App\Hotel;
 use App\User;
+use App\Like;
 use App\Mypage;
 use App\Http\Controllers\HotelsController;
 use App\Http\Controllers\MypageController;
@@ -46,26 +47,26 @@ Route::get('/hotels', [HotelsController::class, 'index'])->name('hotels_index');
 Route::post('/hotels', [HotelsController::class, 'store'])->name('hotels_add');
 
 // ホテルを削除
-Route::delete('/hotel/{hotel}','HotelsController@destroy');
+Route::delete('/hotel/{hotel}','HotelsController@destroy')->name('hotels_delete');
 
 //「ホテル」を更新画面表示
 Route::get('/hotelsedit/{hotel}','HotelsController@edit');
 
 //「ホテル」を更新処理
-Route::post('hotels/update','HotelsController@update');
+Route::post('hotels/update','HotelsController@update')->name('hotels_update');
 
 //MyPageに自分の登録したホテルのインデックス表示
-Route::get('/mypage/{request}', 'MypageController@index');
+Route::get('/mypage/{id}', 'MypageController@index')->name('mypage_index');
 
-// Route::get('/hotelpage/{id}', [HotelpageController::class, 'show']);
+//hotelpageの表示
+Route::get('/hotelpage/{id}', 'HotelpageController@index')->name('hotel_show');
 
 //hotelpageのun-お気に入り処理
 Route::delete('/hotelpage/{id}', 'FavoController@destroy')->name('favo_delete');
-//hotelpageの表示
-Route::get('/hotelpage/{id}', 'HotelpageController@index');
 
 //hotelpageのお気に入り処理
 Route::post('/hotelpage/{id}', 'FavoController@favo')->name('favo');
+// Route::post('hotelpage/like', 'FavoPostController@like');
 
 //Mypageにお気に入り登録をしたホテルのインデックス表示
 Route::get('/wishlist/{id}','MypageWishController@index')->name('my_wish');
@@ -82,7 +83,7 @@ Route::post('/userslist/unfollow', 'FollowUserController@unfollow')->name('unfol
 Route::get('/profile/{id}', 'ProfileController@profile')->name('profile');
 
 //プロフィール画像の更新
-Route::get('/profile/{id}', 'UsersController@update' )->name('profile_update');
+Route::post('/profile/{id}', 'UsersController@update' )->name('profile_update');
 
 // Route::get('/', 'FavoController@index')->name('likes.index');
 
@@ -128,6 +129,7 @@ Route::get('/hotelsregister', function () {
 Route::get('/map', function () {
     return view('Test');
 });
+
 
 
 

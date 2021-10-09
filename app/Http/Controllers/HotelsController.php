@@ -105,12 +105,13 @@ class HotelsController extends Controller
         //ファイルをpublic/uploadフォルダに移動
         $file->move($target_path,$fileName);
         
-        // $hotels = Hotel::orderBy('created_at', 'asc') ->first();
+        $hotels = Hotel::orderBy('created_at', 'asc') ->first();
         
+        //保存処理後一覧ページに飛ばす 
         return view ('hotels',[
             'hotels' => $hotels
             ]);
-        //保存処理後一覧ページに飛ばす 
+        
         
         
     }
@@ -216,7 +217,7 @@ class HotelsController extends Controller
     {
         //
         $hotel->delete();
-        return redirect('/');
+        return redirect('hotels');
     }
     
      public function form()

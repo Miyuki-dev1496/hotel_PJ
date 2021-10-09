@@ -3,52 +3,79 @@
 <!doctype html>
 <body>
     <head>
-         <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <!-- Styles -->
-            <link href="{{ asset('css/uploader.css') }}" rel="stylesheet">
-            <!-- Scripts -->
-            <script src="{{ asset('js/uploader.js') }}" defer></script>
-      
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Hugo 0.79.0">
+        <title>Profile Edit</title>
         
-    </head>
-<style>
-   input#profile_image {
+    
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+         <!-- Styles -->
+        <link href="{{ asset('css/uploader.css') }}" rel="stylesheet">
+            <!-- Scripts -->
+        <script src="{{ asset('js/uploader.js') }}" defer></script>
+
+            <!-- Bootstrap core CSS -->
+        <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <style>
+          .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+          }
+    
+          @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+              font-size: 3.5rem;
+            }
+          }
+          
+          @target {
+            width : 500px;
+            heigh : 500px;
+          }
+          
+             input#profile_image {
                 display: none;
             }
-</style>
+          
+        </style>
+    </head>
+    
+
 <div class="container">
     <h1>Profile Image Upload 
         <small>with preview</small>
     </h1>
     <div class="avatar-upload">
-        <div class="avatar-edit">
-            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
-            <label for="imageUpload"></label>
-        </div>
-        <div class="avatar-preview">
-            <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
-            
+        <form method="post" action="{{ url ('profile/'.optional($user)->id) }}" enctype="multipart/form-data">
+            @csrf
+            @method('POST')
+            <div class="avatar-edit">
+                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                <label for="imageUpload"></label>
             </div>
-        </div>
+            <div class="avatar-preview">
+                <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+                
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+            Change
+            </button>
+        </form>
+    </div>
+    <div>
+       
     </div>
 </div>
 
-<form method="post" action="{{ route('users.update', ['user' => optional($user)->id]) }}" enctype="multipart/form-data">
-  @csrf
-  @method('PATCH')
 
-  <label for="profile_image">プロフィール画像</label>
-
-  <label for="profile_image" class="btn">
-    <img src="{{ asset('storage/profiles/'.$user->profile_image) }}" id="img">
-    <input id="profile_image" type="file"  name="profile_image" onchange="previewImage(this);">
-  </label>
-
-  <button type="submit" class="btn btn-primary">
-    Change
-  </button>
-</form>
 
 <script>
   function previewImage(obj)

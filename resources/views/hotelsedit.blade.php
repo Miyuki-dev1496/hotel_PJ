@@ -34,21 +34,37 @@
                         
             
             
-            
-            
-            
-            <!-- Save ボタン/Back ボタン -->
-            <div class="well well-sm">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <a class="btn btn-link pull-right" href="{{ url('/') }}"> Back</a>
+         @if(Auth::check())
+            <div class="well well-sm" style=display:inline-flex margin-left="10px">
+                 
+                 
+                    <!-- Save ボタン -->
+                　　<form action="{{ url('hotels/update'.$hotel->id) }}" method="POST">
+                	{{ csrf_field() }}
+                	<button type="submit" class="btn btn-primary">
+                	Save
+                	</button>
+                　　</form>
+                    <!--/ Deleteボタンン -->
+                    <form action="{{ url('hotel/'.$hotel->id) }}" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }} 
+                        <button type="submit" class="btn btn-primary">
+                        Delete
+                        </button>
+                    </form>
+                    <!--Backボタン-->
+                    <a class="btn btn-link pull-right" href="{{ url('/') }}"> Back</a>
+                    
             </div>
-            <!--/ Save ボタン/Back ボタン -->
-            <!-- id 値を送信 -->
+            <form>
+              <!-- id 値を送信 -->
             <input type="hidden" name="id" value="{{$hotel->id}}" /> <!--/ id 値を送信 -->
             <!-- CSRF -->
             {{ csrf_field() }}
             <!--/ CSRF -->
-        </form>
+            </form>
+        @endif
     </div>
 </div>
 @endsection

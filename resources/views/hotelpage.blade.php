@@ -54,20 +54,20 @@
     <div class="carousel-inner">
        
       <div class="carousel-item active">
-        
+        <!--このホテルの画像-->
         <img class="d-block w-80" src="/hotelImages/{{ optional($hotel)->h_img }}" x="0" y="0"  width="auto" height="300"/>
-        <h5 type=hidden></h5>
+       
         <!--<p>...</p>-->
       </div>
       
       <div class="carousel-item">
         <img class="d-block w-80" src="/hotelImages/3hoAkcgE4zuMn9Czcwidlkj9MsnfhxMl.jpg" width="auto" height="300">
-        <h5 type=hidden></h5>
+        
         <!--<p>...</p>-->
       </div>
       <div class="carousel-item">
          <img class="d-block w-80" src="/hotelImages/{{ $hotel['h_img'] }}" x="0" y="0"  width="auto" height="300"/>
-        <h5 type=hidden></h5>
+        
         <!--<p>...</p>-->
       </div>
     </div>
@@ -89,32 +89,30 @@
   <!--hotel main-->
   <main>
   <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
-    
+    <!--ホテル名-->
     <div class="col-md-6 px-0">
       <b><h1 class="display-4 font-italic" style=font-size:30px,font-weight:50;>{{ optional($hotel) ->h_name }}</h1></b>
-     
-      @if(Auth::check())
+     　<!--お気に入り表示-->
+        @if(Auth::check())
       
-  	    @if($hotel->favo_user()->where('user_id',Auth::id())->exists() !== true)
-        
-  	    <form action="{{ route('favo', [$hotel['id']]) }}" method="POST">
-      	{{ csrf_field() }}
-        <button type="submit" class="btn btn-danger">
-        お気に入り
-        </button>
-        </form>
-        
-        @else
-         <form action="{{ route('favo_delete',[$hotel['id']]) }}" method="POST" >
-        {{ csrf_field() }}
-        <button type="submit" class="btn btn-danger">
-        お気に入りから外す
-        </button>
-        </form>
-  
-  
+    	    @if ($isliked !=true )
+              <form type=hidden action={{ route('favo', [$hotel['id']]) }} method="POST">
+            	{{ csrf_field() }}
+              <button type="submit" class="btn btn-danger">
+              お気に入り
+              </button>
+              </form>
+          @else
+              <form type=hidden action={{ route('favo_delete',[$hotel['id']]) }} method="POST" >
+              {{ csrf_field() }}
+              <button type="submit" class="btn btn-danger">
+              お気に入りから外す
+              </button>
+              </form>
+          @endif
         @endif
-      @endif
+        
+        
       <p class="lead my-3">{{ optional($hotel) ->h_location }}</p>
       <p class="lead mb-0"><a href={{ (optional($hotel) ->h_link )}}</a>Hotel Link</p>
     </div>
@@ -124,8 +122,7 @@
  
   
   <div class="container marketing" width="900px">
-    
-      <!--お気に入りに登録しているユーザーインデックス-->
+    <!--お気に入りに登録しているユーザーインデックス-->
      <!-- Three columns of text below the carousel -->
     <div class="row">
       @if(!is_null($favousers))
@@ -135,13 +132,14 @@
         <a  href="{{ url ('mypage/'.$favouser['id'] )}}">
         <img class="bd-placeholder-img card-img-top" src={{ asset('/images/profile.png')}} width="3%" height="auto"></a></svg>
         <!--<rect width="80%" height="80%" fill="#777"/>-->
-        <h2>username{{ $favouser['name'] }}</h2>
-        <p class="card-text">{{ $favouser ['name']}}</p>
+        <h2>username {{ $favouser['name'] }}</h2>
+        <p class="card-text">{{ $favouser->name}}</p>
         <!--<p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>-->
         <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
       </div><!-- /.col-lg-4 -->
       @endforeach
       @endif
+    
       
     </div><!-- /.row --> 
     

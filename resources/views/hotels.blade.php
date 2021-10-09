@@ -90,6 +90,7 @@
                 <div class="btn-group">
                   <form action="{{ url ('hotelpage/'.optional($hotel)->id) }}">
                   <button type="POST" class="btn btn-sm btn-outline-secondary">View</button>
+                  
                   <button type="button" class="btn btn-sm btn-outline-secondary"><img src="{{ asset('/images/heart.png')}}" height="18px"></button>
                   </form>
                   
