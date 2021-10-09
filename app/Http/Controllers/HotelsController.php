@@ -29,7 +29,7 @@ class HotelsController extends Controller
         return view('hotels')
             ->with([
                 'hotels' => $hotels,
-                // 'isliked' => $isliked
+               cd cms
             ]);
             
        
