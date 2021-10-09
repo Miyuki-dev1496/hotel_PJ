@@ -22,10 +22,14 @@ class HotelsController extends Controller
     {
          //
         $hotels = Hotel::orderBy('created_at', 'desc')->get();
+       
+        // //ログインユーザーがこのホテルをLikeしているかどうか
+        // $isliked = Auth::user()->favo_hotels()->where('hotel_id',$this->hotels->id)->exists();
         
         return view('hotels')
             ->with([
                 'hotels' => $hotels,
+                // 'isliked' => $isliked
             ]);
             
        
