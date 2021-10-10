@@ -20,6 +20,7 @@ class CreateHotelUserTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); //外部キー参照
             $table->foreign('hotel_id')->references('id')->on('hotels')->onDelete('cascade'); //外部キー参照
             $table->unique(['user_id', 'hotel_id'],'uq_roles'); //Laravelは複合主キーが扱いにくいのでユニークで代
+           
         });
     }
 

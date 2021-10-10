@@ -13,9 +13,9 @@ class CreateHotelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hotels', function (Blueprint $table) {
+         Schema::create('hotels', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');//追記
+            $table->unsignedinteger('user_id')->nullable();
             $table->string('h_name');//追記
             $table->string('h_location')->nullable();//追記
             $table->integer('h_latitude')->nullable();//追記
@@ -29,6 +29,7 @@ class CreateHotelsTable extends Migration
             $table->integer('stars_id')->nullable();//追記
 
             $table->timestamps();
+
         });
     }
 
